@@ -61,7 +61,7 @@ int main()
                     {
                         if(comd[j]=='@')
                         {
-                            j++;
+                            j++,i++;
                             switch(comd[j])//当遇到@转义符号时特殊输出
                             {
                                 case '@':printf("@"); break;
@@ -73,7 +73,7 @@ int main()
                         else
                             printf("%c",comd[j]);
                     }
-                    i+=3;
+                    i++;
                 }
                 else//否则输出变量的值
                 {
