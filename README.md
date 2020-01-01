@@ -53,7 +53,7 @@ The code above is going to output "1"(exclude quotation marks) if 1 is true
 the function "when<>repeat" can be used to repeat to do the following codes stop at "end" until the Boolean expression in the brackets is false.
 
 	def(i,1)
-	when(i<=10)
+	when(i<=10)repeat
 	    out(i,"@e")
 	    i=i+1
 	end
@@ -113,7 +113,7 @@ when函数在判断括号内内容为真之后将执行后来的命令。一个w
 when<>repeat函数在判断括号内内容为真之后将重复执行后来的命令。一个when<>repeat函数会停止在"end"处。
 
 	def(i,1)
-	when(i<=10)
+	when(i<=10)repeat
 	    out(i,"@e")
 	    i=i+1
 	end
