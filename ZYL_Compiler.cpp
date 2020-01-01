@@ -30,6 +30,25 @@ void insert_k(string nam,string dat,int k)
 	return;
 }
 
+void delete_k(string nam)
+{
+    vari *i;
+    for(i=head;i->next!=NULL && i->name!=nam;i=i->next);
+    if(i->next==NULL)
+    {
+        return;
+    }
+    if(i->name==nam)
+    {
+        vari *p;
+        p=i->next;
+        i->next=p->next;
+        free(p);
+        return;
+    }
+    return;
+}
+
 string get_k(string nam)
 {
     vari *i;
@@ -40,9 +59,8 @@ string get_k(string nam)
 
 int main()
 {
-    FILE *fstdin;
     freopen("result.txt","w",stdout);
-    fstdin=fopen("input.txt","rb");
+    freopen("input.txt","r",stdin);
     ifstream fin("code.zyl");
     ofstream fout("result.txt");
     head=(vari *)malloc(sizeof(vari));
@@ -50,7 +68,7 @@ int main()
 
     while(fin>>comd)
     {
-        if(comd.substr(0,4)=="out(")//out函数
+        if(comd.substr(0,4)=="out(")//out函数（完善）
         {
             for(int i=4;comd[i]!=')'&&i<comd.length();i++)
             {
@@ -88,7 +106,7 @@ int main()
                 }
             }
         }
-        else if(comd.substr(0,4)=="def(")//def函数
+        else if(comd.substr(0,4)=="def(")//def函数（完善）
         {
             string name="",data="";
             int i;
@@ -102,8 +120,28 @@ int main()
             else data="0";
             insert_k(name,data,1);
         }
+        else if(comd.substr(0,3)=="in(")//in函数（完善）
+        {
+            int i=3;
+            while(1)
+            {
+                string name="",data="";
+                for(;comd[i]!=',' && comd[i]!=')';i++)
+                {
+                    name+=comd[i];
+                }
+                char d;
+                while(scanf("%c",&d)!=EOF && d!=' ')
+                    data+=d;
+                delete_k(name);
+                insert_k(name,data,1);
+                if(comd[i]==')')
+                    break;
+                i++;
+            }
+        }
     }
 
-    fclose(stdout); fclose(fstdin); fin.close(); fout.close();
+    fclose(stdout); fclose(stdin); fin.close(); fout.close();
     return 0;
 }
