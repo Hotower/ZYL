@@ -1,0 +1,9 @@
+def(i,1)
+when(i<=10)repeat
+    out(i,"@e")
+    i=i+1
+end
+def(j)
+out(j,"@@")
+in(i,j)
+out("@l@"",i,",",j,"@"")
