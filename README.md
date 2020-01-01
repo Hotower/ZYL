@@ -1,4 +1,4 @@
-# ZYL
+﻿# ZYL
 ZYong,a simple programming language
 # Introduction(English Edition)
 	Hello,this is Hotower,I'm going to introduce you a interesting programme:ZYong.
@@ -37,7 +37,7 @@ The code above is going to define a variable "a" whose value will be "123"
 
 out函数可以在`result.txt`当中输出一些东西，你可以编译后在这个文档中找到你输出的结果。
 
-	out("string");
+	out("string")
 
 上述代码可以在`result.txt`当中输出“string”（不包括引号）。
 
