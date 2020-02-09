@@ -5,12 +5,17 @@
 #include <cstdlib>
 #include <malloc.h>
 #include <string>
+#include <cstring>
+#include <ctime>
 using namespace std;
 
 string comd;
 
 ifstream fin("code.zyl");
 ofstream fout("result.txt",ios::app);
+ofstream foe("debug.txt",ios::app);
+
+int linen=0,temo=1;
 
 const int SFK=5;
 string SF="+-*/%";
@@ -103,6 +108,7 @@ string JudgeT(string bds)//计算表达式的值
                     case 3: ans=atoi((char *)x.data())*atoi((char *)y.data()); break;
                     case 4:
                         if(atoi((char *)y.data())!=0) ans=atoi((char *)x.data())/atoi((char *)y.data());
+                        else foe<<"Divided by Zero"<<endl;
                         break;
                 }
                 return to_string(ans);
@@ -113,6 +119,7 @@ string JudgeT(string bds)//计算表达式的值
                 switch(mode)
                 {
                     case 1: ans=x+y;
+                    default: foe<<"Invalid Operator for String"<<endl;
                 }
                 return ans;
             }
@@ -240,25 +247,46 @@ void doing()
                 }
             }
         }
-        else//when<>repeat函数（完善）
+        else//when<>repeat函数（not完善）
         {
             FILE *dmo;
-            ofstream foutout("temp.txt");
+            char namef[50];
+            sprintf(namef,"temp%d",temo);
+            temo++;
+            ofstream foutout(namef);
             string tiaojian=comd.substr(5,comd.length()-12);
-            while(fin>>comd && comd!="end")
+            int stac[100],top=0;
+            stac[top]=1;
+            while(fin>>comd && top>=0)
             {
+                if(comd=="end")
+                {
+                    top--; continue;
+                }
+                if(comd.substr(0,5)=="when(")
+                {
+                    top++;
+                    if(!(comd.substr(comd.length()-6,6)=="repeat"))
+                    {
+                        stac[top]=0;
+                    }
+                    else
+                    {
+                        stac[top]=1;
+                    }
+                }
                 foutout<<comd<<endl;
             }
             foutout.close();
             while(Judge(tiaojian))
             {
-                ifstream fini("temp.txt");
+                ifstream fini(namef);
                 while(fini>>comd)
                 {
                     doing();
                 }
             }
-            remove("temp.txt");
+            remove(namef);
         }
     }
     else if(comd.substr(0,4)=="out(")//out函数（完善）
@@ -335,6 +363,7 @@ void doing()
     }
     else//赋值语句
     {
+        bool flg=0;
         string name="",y;
         for(int i=0;i<comd.size();i++)
         {
@@ -342,13 +371,30 @@ void doing()
             {
                 delete_k(name);
                 insert_k(name,JudgeT(comd.substr(i+1,comd.size()-i-1)),1);
+                flg=1;
             }
             else
             {
                 name+=comd[i];
             }
         }
+        if(flg)
+        {
+            foe<<"In Line "<<linen<<":Invalid Variable"<<endl;
+        }
     }
+}
+
+void timenow()
+{
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    foe << 1900 + ltm->tm_year;
+    foe << "."<< 1 + ltm->tm_mon;
+    foe << "."<<  ltm->tm_mday;
+    foe << " - "<< ltm->tm_hour << ":";
+    foe << ltm->tm_min << ":";
+    foe << ltm->tm_sec << " --------------";
 }
 
 int main()
@@ -359,7 +405,8 @@ int main()
     head->next=NULL;
     haouse['+']=1; haouse['-']=2; haouse['*']=3; haouse['/']=4; haouse['%']=5;
     haouse['&']=6; haouse['|']=7; haouse['>']=8; haouse['<']=9; haouse['=']=10; haouse['!']=11;
-    while(fin>>comd)
+    foe<<"-------------- ZYL INTERPRET LOG --- "; timenow();
+    while(linen++,fin>>comd)
     {
         doing();
     }
