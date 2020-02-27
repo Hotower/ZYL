@@ -47,7 +47,7 @@ void insert_k(string nam,string dat,int k)//æ’å…¥ä¸€ä¸ªå˜é‡
 	return;
 }
 
-void delete_k(string nam)//åˆ é™¤ä¸€ä¸ªå˜é‡ï¼Œç”¨ä»¥èµ‹å€¼
+void delete_k(string nam)//ÒÆ³ı±äÁ¿£¬ÓÃÓÚÖØĞÂ¸³Öµ 
 {
     vari *i;
     for(i=head;i->next!=NULL && i->name!=nam;i=i->next);
@@ -66,154 +66,22 @@ void delete_k(string nam)//åˆ é™¤ä¸€ä¸ªå˜é‡ï¼Œç”¨ä»¥èµ‹å€¼
     return;
 }
 
-string get_k(string nam)//å¾—åˆ°æŸä¸ªå˜é‡çš„å€¼
+string get_k(string nam)//ÕÒµ½ÃûÎªnamµÄ±äÁ¿µÄÖµ 
 {
     vari *i;
     for(i=head;i->next!=NULL && i->name!=nam;i=i->next);
     if(i->name==nam) return i->data;
-    return "";
+    return "INVALID VARIABLE";
 }
 
-string JudgeT(string bds)//è®¡ç®—è¡¨è¾¾å¼çš„å€¼
+string JudgeT(string bds)//ÅĞ¶Ï±í´ïÊ½µÄÖµ£¨ĞèÖØĞ´£© 
 {
-    string x,y;
-    bool flg=1;
-    int mode=0;
-    for(int i=0;i<bds.length();i++)//åˆ¤æ–­æœ‰æ— è¿ç®—ç¬¦
-    {
-        for(int j=0;j<SFK;j++)
-        {
-            if(bds[i]==SF[j])
-                flg=0,mode=haouse[SF[j]];
-        }
-        if(flg)
-            x+=bds[i];
-        else//å¦‚æœå‡ºç°äº†è¿ç®—ç¬¦
-        {
-            y=JudgeT(bds.substr(i+1,bds.size()-i));
-            break;
-        }
-    }
-    if(mode)//å¦‚æœæœ‰è¿ç®—ç¬¦
-    {
-        if(get_k(x)=="")//å¦‚æœæ²¡æœ‰å˜é‡åç§°ä¸xç›¸åŒ
-        {
-            if(atoi((char *)x.data())!=0 && atoi((char *)y.data())!=0)//å¦‚æœä¸¤è¾¹æ˜¯æ•°å­—
-            {
-                int ans;
-                switch(mode)
-                {
-                    case 1: ans=atoi((char *)x.data())+atoi((char *)y.data()); break;
-                    case 2: ans=atoi((char *)x.data())-atoi((char *)y.data()); break;
-                    case 3: ans=atoi((char *)x.data())*atoi((char *)y.data()); break;
-                    case 4:
-                        if(atoi((char *)y.data())!=0) ans=atoi((char *)x.data())/atoi((char *)y.data());
-                        else foe<<"Divided by Zero"<<endl;
-                        break;
-                }
-                return to_string(ans);
-            }
-            else//å¦‚æœä¸¤è¾¹ä¸æ˜¯æ•°å­—
-            {
-                string ans;
-                switch(mode)
-                {
-                    case 1: ans=x+y;
-                    default: foe<<"Invalid Operator for String"<<endl;
-                }
-                return ans;
-            }
-        }
-        else
-        {
-            x=get_k(x);
-            if(atoi((char *)x.data())!=0 && atoi((char *)y.data())!=0)//å¦‚æœä¸¤è¾¹æ˜¯æ•°å­—
-            {
-                int ans;
-                switch(mode)
-                {
-                    case 1: ans=atoi((char *)x.data())+atoi((char *)y.data()); break;
-                    case 2: ans=atoi((char *)x.data())-atoi((char *)y.data()); break;
-                    case 3: ans=atoi((char *)x.data())*atoi((char *)y.data()); break;
-                    case 4:
-                        if(atoi((char *)y.data())!=0) ans=atoi((char *)x.data())/atoi((char *)y.data());
-                        break;
-                }
-                return to_string(ans);
-            }
-            else//å¦‚æœä¸¤è¾¹ä¸æ˜¯æ•°å­—
-            {
-                string ans;
-                switch(mode)
-                {
-                    case 1: ans=x+y;
-                }
-                return ans;
-            }
-        }
-    }
-    else//å¦‚æœæ— è¿ç®—ç¬¦
-        return x;
+    
 }
 
-bool Judge(string bds)//åˆ¤æ–­è¡¨è¾¾å¼çš„çœŸå‡
+bool Judge(string bds)//Âß¼­ÔËËã£¨ĞèÖØĞ´£©
 {
-    for(int i=0;i<bds.length();i++)//æœ‰æ— è¿ç®—ç¬¦
-    {
-        for(int j=0;j<PDK;j++)
-        {
-            if(bds[i]==PD[j])
-            {
-                string x=bds.substr(0,i),y=bds.substr(i+1,bds.length()-i-1),z=bds.substr(i+2,bds.length()-i-2);
-                int a,b,c;
-                if(get_k(x)!="") {x=get_k(x);}
-                if(get_k(y)!="") {y=get_k(y);}
-                if(get_k(z)!="") {z=get_k(z);}
-                if(atoi((char *)JudgeT(x).data())!=0) {a=atoi((char *)JudgeT(x).data());}
-                if(atoi((char *)JudgeT(y).data())!=0) {b=atoi((char *)JudgeT(y).data());}
-                if(atoi((char *)JudgeT(z).data())!=0) {c=atoi((char *)JudgeT(z).data());}
-                //å¤„ç†å˜é‡çš„æƒ…å†µ
-                if(bds[i]=='&') return Judge(x) && Judge(y);
-                if(bds[i]=='|') return Judge(x) || Judge(y);
-                if(bds[i]=='>')
-                {
-                    if(bds[i+1]=='=')
-                    {
-                        if(a==0 || c==0)
-                            return JudgeT(x) >= JudgeT(z);
-                        return a>=c;
-                    }
-                    if(a==0 || b==0)
-                        return JudgeT(x) > JudgeT(y);
-                    return a>b;
-                }
-                if(bds[i]=='<')
-                {
-                    if(bds[i+1]=='=')
-                    {
-                        if(a==0 || c==0)
-                            return JudgeT(x) <= JudgeT(z);
-                        return a<=c;
-                    }
-                    if(a==0 || b==0)
-                        return JudgeT(x) < JudgeT(y);
-                    return a<b;
-                }
-                if(bds[i]=='!')
-                {
-                    if(bds[i+1]=='=')
-                        return JudgeT(bds.substr(0,i)) != JudgeT(bds.substr(i+2,bds.length()-i-2));
-                    return ! Judge(z);
-                }
-                if(bds[i]=='=')
-                    return (JudgeT(bds.substr(0,i)) == JudgeT(bds.substr(i+1,bds.length()-i-1)));
-            }
-        }
-    }
-    bds=JudgeT(bds);
-    if(bds!="" && bds!="0")
-        return true;
-    return false;
+    
 }
 
 bool zc(string a,string b)
@@ -234,9 +102,9 @@ bool zc(string a,string b)
 
 void doing()
 {
-    if(comd.substr(0,5)=="when(")//when & when<>repeatå‡½æ•°ï¼ˆå®Œå–„ï¼‰
+    if(comd.substr(0,5)=="when(")//when & when<>repeatÌõ¼ş&Ñ­»·Óï¾ä 
     {
-        if(!(comd.substr(comd.length()-6,6)=="repeat"))//whenå‡½æ•°ï¼ˆå®Œå–„ï¼‰
+        if(!(comd.substr(comd.length()-6,6)=="repeat"))//whenÌõ¼şÓï¾ä 
         {
             string tiaojian=comd.substr(5,comd.length()-1);
             if(Judge(tiaojian))
@@ -247,7 +115,7 @@ void doing()
                 }
             }
         }
-        else//when<>repeatå‡½æ•°ï¼ˆnotå®Œå–„ï¼‰
+        else//when<>repeatÑ­»·Óï¾ä
         {
             FILE *dmo;
             char namef[50];
@@ -289,11 +157,11 @@ void doing()
             remove(namef);
         }
     }
-    else if(comd.substr(0,4)=="out(")//outå‡½æ•°ï¼ˆå®Œå–„ï¼‰
+    else if(comd.substr(0,4)=="out(")//outÊä³ö
     {
         for(int i=4;comd[i]!=')'&&i<comd.length();i++)
         {
-            if(comd[i]=='\"')//å¼•å·å†…å†…å®¹åŸæ ·è¾“å‡º
+            if(comd[i]=='\"')//´øÒıºÅ²¿·ÖÔ­ÑùÊä³ö 
             {
                 if(comd[i]==',') continue;
                 for(int j=i+1;comd[j]!='\"'&&j<comd.length();j++,i++)
@@ -301,7 +169,7 @@ void doing()
                     if(comd[j]=='@')
                     {
                         j++,i++;
-                        switch(comd[j])//å½“é‡åˆ°@è½¬ä¹‰ç¬¦å·æ—¶ç‰¹æ®Šè¾“å‡º
+                        switch(comd[j])//@×ªÒå·ûºÅ 
                         {
                             case '@':printf("@"); break;
                             case 'l':printf("\n"); break;
@@ -314,34 +182,37 @@ void doing()
                 }
                 i++;
             }
-            else//å¦åˆ™è¾“å‡ºå˜é‡çš„å€¼
+            else//·ñÔòÊä³ö±äÁ¿»ò±í´ïÊ½µÄÖµ 
             {
                 string name="",data="";
                 for(int j=i;comd[j]!=',' && comd[j]!=')' && j<comd.length();i++,j++)
                 {
                         name+=comd[j];
-                }//æ‰¾å˜é‡å
+                }
                 string ans=get_k(name);
-                for(int i=0;i<ans.length();i++)
-                    printf("%c",ans[i]);
+                if(ans=="INVALID VARIABLE")
+                	foe<<"In Line "<<linen<<":Invalid Variable"<<endl;
+                else
+                	for(int i=0;i<ans.length();i++)
+                    	printf("%c",ans[i]);
             }
         }
     }
-    else if(comd.substr(0,4)=="def(")//defå‡½æ•°ï¼ˆå®Œå–„ï¼‰
+    else if(comd.substr(0,4)=="def(")//def¶¨Òå±äÁ¿ 
     {
         string name="",data="";
         int i;
         for(i=4;comd[i]!=',' && comd[i]!=')' && i<comd.length();i++)
         {
             name+=comd[i];
-        }//å­˜å‚¨å˜é‡å
+        }//ÏÂÃæ¼ì²âÊÇ·ñÓĞ³õÊ¼Öµ 
         if(comd[i]==',')
             for(int j=i+1;comd[j]!=')';j++)
                 data+=comd[j];
         else data="0";
         insert_k(name,data,1);
     }
-    else if(comd.substr(0,3)=="in(")//inå‡½æ•°ï¼ˆå®Œå–„ï¼‰
+    else if(comd.substr(0,3)=="in(")//inÊäÈë 
     {
         int i=3;
         while(1)
@@ -361,7 +232,7 @@ void doing()
             i++;
         }
     }
-    else//èµ‹å€¼è¯­å¥
+    else
     {
         bool flg=0;
         string name="",y;
@@ -387,14 +258,27 @@ void doing()
 
 void timenow()
 {
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
-    foe << 1900 + ltm->tm_year;
-    foe << "."<< 1 + ltm->tm_mon;
-    foe << "."<<  ltm->tm_mday;
-    foe << " - "<< ltm->tm_hour << ":";
-    foe << ltm->tm_min << ":";
-    foe << ltm->tm_sec << " --------------";
+    time_t now=time(0);
+    tm *ltm=localtime(&now);
+    foe<<1900+ltm->tm_year;
+    if((1 + ltm->tm_mon)/10!=0)
+    	foe<<"."<<1+ltm->tm_mon;
+    else
+    	foe<<".0"<<1+ltm->tm_mon;
+    if((ltm->tm_mday)/10!=0)
+    	foe<<"."<<ltm->tm_mday;
+    else
+    	foe<<".0"<<ltm->tm_mday;
+    foe <<" - "<<ltm->tm_hour <<":";
+    if((ltm->tm_min)/10!=0)
+    	foe<<ltm->tm_min;
+    else
+    	foe<<"0"<<ltm->tm_min;
+    if((ltm->tm_sec)/10!=0)
+    	foe<<":"<<ltm->tm_sec;
+    else
+    	foe<<":0"<<ltm->tm_sec;
+	foe<<" --------------"<<endl;
 }
 
 int main()
