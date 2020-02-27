@@ -2,7 +2,7 @@
 ZYong,a simple programming language
 # Introduction(English Edition)
 	Hello,this is Hotower,I'm going to introduce you a interesting programme:ZYong.
-	The code of ZYong should be written in "code.zyl" and run "ZYL_Compiler" to compile it.
+	The code of ZYong should be written in "code.zyl" and run "ZYL_Interpreter.exe" to compile it.
 	This is a simple programming language but (in my opinion) not a simple work.
 	here are the functions supported in the language:
 
@@ -63,7 +63,7 @@ The code above is going to output the value of i and increase i by 1 until i<=10
 <br> <br>  <hr>  <br>
 # 简介（简体中文版）
 	大家好，我是热力天蝎。我将在此介绍一个有趣的程序：中庸。
-	中庸的代码需要写在"code.zyl"中，然后运行"ZYL_Compiler"来编译。
+	中庸的代码需要写在"code.zyl"中，然后运行"ZYL_Interpreter.exe"来编译。
 	这是一门简单的编程语言，但写起来（在我看来）并不简单。
 	接下来我将介绍已有的函数：
 ## 一、out()
