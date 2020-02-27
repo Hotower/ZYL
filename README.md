@@ -6,6 +6,8 @@ ZYong,a simple programming language
 	This is a simple programming language but (in my opinion) not a simple work.
 	here are the functions supported in the language:
 
+你可能想看[简介（简体中文版）](https://github.com/Hotower/ZYL#%E7%AE%80%E4%BB%8B%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%E7%89%88)
+
 ## A.out()
 
 the function "out" can be used to output sth in `result.txt`,you can check the answer in the txt after compiling.
